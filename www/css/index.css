@@ -1,0 +1,546 @@
+/* FONTS */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/Roboto/Roboto-Regular.ttf);
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* INITIAL CSS */
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    box-sizing: border-box;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFF !important;
+    color: #000 !important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    height:100vh;
+    margin:0px;
+    padding:0px;
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    text-transform: uppercase;
+    width:100%;
+}
+
+/* Portrait layout (default) */
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+/* NAVBAR */
+
+.nav {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #8c1d40;
+	display: flex;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+}
+
+.nav li {
+	text-align: center;
+}
+
+.nav li a {
+	display: block;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	line-height: 50px;
+	position: relative;
+}
+
+.nav-toggle {
+	font-size: 30px;
+}
+
+.nav-toggle .show-icon, .nav-toggle .close-icon {
+	position: absolute;
+	top: 10px;
+	transition: all 0.4s;
+}
+
+.nav-toggle .show-icon {
+	opacity: 1;
+}
+
+.nav-toggle .close-icon {
+	left: 50%;
+	transform: translateX(4px);
+	opacity: 0;
+}
+
+.nav-toggle.toggled .show-icon {
+	opacity: 0;
+}
+
+.nav-toggle.toggled .close-icon {
+	opacity: 1;
+}
+
+.menu-bars {
+	width: 25%;
+	display: flex;
+	justify-content: start;
+	padding-left: 5%;
+}
+
+.app-title {
+	color: #fff;
+	line-height: 50px;
+	width: 50%;
+}
+
+.user-icon {
+	width: 25%;
+	height: 50px;
+	display: flex;
+	justify-content: end;
+	padding-right: 5%;
+}
+
+.user-icon img {
+	max-width: 40px;
+	max-height: 40px;
+	margin-top: 5px;
+	border-radius: 50%;
+}
+
+/* MENU */
+
+.menu {
+	list-style-type: none;
+	position: fixed;
+	top: 50px;
+	width: 100vw;
+	background-color: #8c1d40;
+	margin: 0;
+	padding: 0;
+	height: 0px;
+	transition: all 0.4s;
+	overflow: hidden;
+	z-index: 100;
+}
+
+.menu.open {
+	height: 100vh;
+}
+
+.menu li {
+	width: 100vw;
+}
+
+.menu li:first-child {
+	margin-top: 20px;
+}
+
+.menu li a {
+	display: block;
+	color: #fff;
+	border-bottom: solid 1px rgba(255, 255, 255, 0.4);
+	text-decoration: none;
+	font-size: 1.5em;
+	padding: 0.5em 1em;
+}
+
+.menu li a i {
+	margin-right: 0.5em;
+}
+
+.menu li a:last-child {
+	border-bottom: none;
+}
+
+/* VIEWS */
+.view {
+	height: 100vh;
+	width: 100vw;
+	display: none;
+}
+
+.view.showing {
+	display: flex;
+}
+
+/* HOME VIEW */
+
+#home {
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: space-around;
+	padding-top: 50px;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	width: 50%;
+	justify-content: center;
+	align-content: space-between;
+	padding: 10%;
+	text-align: center;
+	color: #8c1d40;
+	text-decoration :none
+}
+
+.item img {
+	max-width: 80%;
+	max-height: 80%;
+	margin: auto;
+}
+
+.item .item-text {
+	text-align: center;
+	margin-top: 0.5em;
+}
+
+/* LOGIN VIEW */
+
+#login {
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* FORGOT PASSWORD VIEW */
+
+#forgot-password {
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* SIGN-UP VIEW */
+
+#sign-up {
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* RESET PASSWORD VIEW */
+
+#reset-password {
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+}
+
+hr {
+	border: solid 1px #aaa;
+	width: 90%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* INPUTS */
+
+input {
+	padding: 0.5em 1em;
+	font-size: 14px;
+	height: 35px;
+	border-radius: 0.3em;
+	border: solid 1px #ccc;
+	background-color: #fff;
+	color: #000;
+}
+
+input:focus, textarea:focus {
+	outline: solid 2px #8c1d40;
+}
+
+*:not(.input-group) > input[type="email"], *:not(.input-group) > input[type="text"] {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0.3em;
+}
+
+label {
+	margin-bottom: 0.3em;
+	position: relative;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+label small.error-msg {
+	float: right;
+	color: #900;
+	display: none;
+}
+
+.input-group {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0.3em;
+	display: flex;
+	border-radius: 0.3em;
+	height: 35px;
+}
+
+.input-group.input-individual {
+	justify-content:space-between;
+}
+
+.input-group.justify-center {
+	justify-content: center !important;
+}
+
+.input-group:not(.no-outline):focus-within {
+	outline: solid 2px #8c1d40;
+}
+
+.input-group.error input, .input-group.error .input-group-append {
+	border-color: #900;
+}
+
+.input-group:not(.input-individual) input {
+	width: calc(100% - 30px);
+	border-right: none;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	outline: none !important;
+}
+
+.input-group.input-individual input {
+	width: 48%;
+}	
+
+.input-group-append {
+	width: 35px;
+	background-color: #eee;
+	line-height: 35px;
+	text-align: center;
+	border: solid 1px #ccc;
+	border-left: none;
+	border-top-right-radius: 0.3em;
+	border-bottom-right-radius: 0.3em;
+}
+
+select {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 35px;
+	border-radius: 0.3em;
+}
+
+.email-check .email-question, .screen-name-check .screen-name-question {
+	color: #aaa;
+	display: inline-block;
+}
+
+.email-check .email-checking, .screen-name-check .screen-name-checking {
+	color: #000;
+	display: none;
+}
+
+.email-check .email-okay, .screen-name-check .screen-name-okay {
+	display: none;
+	color: #090;
+}
+
+.email-check .email-not-okay, .screen-name-check .screen-name-not-okay {
+	display: none;
+	color: #900;
+}
+
+/* SHOW - HIDE PASSWORD */
+.show-hide-password {
+	color: #aaa;
+}
+
+.show-hide-password:active, .show-hide-password:hover {
+	color: #000;
+}
+
+.show-hide-password .hide-password, .show-hide-password.showing .show-password {
+	display: none;
+}
+
+.show-hide-password.showing .hide-password, .show-hide-password .show-password {
+	display: inline-block;
+}
+
+/* BUTTONS */
+.btn {
+	display: block;
+	width: 90%;
+	margin: 0.5em auto;
+	background-color: #8c1d40;
+	padding: 0.5em 1em;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 0.3em;
+	text-decoration: none;
+}
+
+.btn i {
+	margin-right: 0.5em;
+}
+
+.btn i.icon-right {
+	margin-left: 0.5em;
+}
+
+/* TYPOGRAPHY */
+
+h3 { text-align: center; }
+
+/* MODAL */
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	display: none;
+}
+
+.modal-body {
+	width: 90%;
+	padding: 25px;
+	background-color: #fff;
+	border-radius: 1em;
+}
+
+.modal-body p {
+	text-transform: none;
+	line-height: 1.5em;
+}
+
+/* TOGGLE SWITCH */
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 44px;
+	height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 16px;
+	width: 16px;
+	left: 4px;
+	bottom: 2px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: #2196F3;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 20px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+/* CUSTOM CHECKBOX */
+.custom-checkbox {
+	position: relative;
+	width: 35px;
+	height: 35px;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+}
+
+.custom-checkbox input {
+	width: 0;
+	height: 0;
+	opacity: 0;
+}
+
+.custom-checkbox .circle {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #fff;
+	display: block;
+	line-height: 35px;
+	text-align: center;
+	border: solid 1px #ccc;
+	border-radius: 50%;
+}
+
+input:checked + .circle {
+	background-color: #8c1d40;
+	color: #fff;
+}

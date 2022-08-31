@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src * iftapp:; style-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src *; img-src 'self' data: content:; script-src * 'self' 'unsafe-inline' 'unsafe-eval';">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<script src="js/jquery.js"></script>
+		<link rel="stylesheet" href="fontawesome/css/all.css">
+		<link rel="stylesheet" href="css/index.css">
+        <title>IFT Student App</title>
+    </head>
+    <body>
+    	<!-- NAVIGATION MENU -->
+		<ul class="nav">
+			<li class="menu-bars"><a href="#" class="nav-toggle"><i class="fa-solid fa-bars show-icon"></i><i class="fa-solid fa-times close-icon"></i></a></li><li class="app-title">IFT Student App</li><li class="user-icon"><img src="img/blank-profile.png"></li>
+		</ul>
+		<ul class="menu">
+			<li><a href="home"><i class="fa-solid fa-house"></i> Home</a></li>
+			<li><a href="profile"><i class="fa-solid fa-circle-user"></i> Profile</a></li>
+			<li><a href="chat"><i class="fa-solid fa-comments"></i> Chat</a></li>
+			<li><a href="calendar"><i class="fa-solid fa-calendar"></i> Calendar</a></li>
+			<li><a href="email"><i class="fa-solid fa-at"></i> Messaging</a></li>
+			<li><a href="games"><i class="fa-solid fa-dice"></i> Games</a></li>
+			<li><a href="inspiration"><i class="fa-solid fa-quote-left"></i> Inspiration</a></li>
+			<li><a href="#" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+		</ul>
+		<!-- HOME VIEW -->
+		<div class="view" id="home">
+			<a class="item" href="profile">
+				<i class="fa-solid fa-circle-user fa-5x"></i>
+				<div class="item-text">Profile</div>
+			</a>
+			<a class="item" href="chat">
+				<i class="fa-solid fa-comments fa-5x"></i>
+				<div class="item-text">Chat</div>
+			</a>
+			<a class="item" href="calendar">
+				<i class="fa-solid fa-calendar fa-5x"></i>
+				<div class="item-text">Calendar</div>
+			</a>
+			<a class="item" href="email">
+				<i class="fa-solid fa-at fa-5x"></i>
+				<div class="item-text">Messaging</div>
+			</a>
+			<a class="item" href="games">
+				<i class="fa-solid fa-dice fa-5x"></i>
+				<div class="item-text">Games</div>
+			</a>
+			<a class="item" href="inspiration">
+				<i class="fa-solid fa-quote-left fa-5x"></i>
+				<div class="item-text">Inspiration</div>
+			</a>
+			<a href="#" class="btn" id="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</li></a>
+		</div>
+		<!-- PROFILE VIEW -->
+		<div class="view" id="profile"></div>
+		<!-- CHAT VIEW -->
+		<div class="view" id="chat"></div>
+		<!-- CALENDAR VIEW -->
+		<div class="view" id="calendar"></div>
+		<!-- MESSAGING VIEW -->
+		<div class="view" id="email"></div>
+		<!-- GAMES VIEW -->
+		<div class="view" id="games"></div>
+		<!-- INSPIRATION VIEW -->
+		<div class="view" id="inspiration"></div>
+		
+		<!-- USER MANAGEMENT VIEWS -->
+		<!-- LOGIN VIEW -->
+    	<div class="view" id="login">
+    		<h3>Login</h3>
+    		<div class="input-group email-group">
+	    		<input type="email" id="login-email">
+	    		<div class="input-group-append email-check">
+	    			<i class="fa-solid fa-circle-question email-question"></i>
+	    			<i class="fa-solid fa-circle-notch fa-spin email-checking"></i>
+	    			<i class="fa-solid fa-circle-check email-okay"></i>
+	    			<i class="fa-solid fa-circle-xmark email-not-okay"></i>
+	    		</div>
+	    	</div>
+   			<label>
+   				Email Address
+   				<small class="error-msg email-error">This is an error.</small>
+   			</label>
+	   		<div class="input-group">
+	    		<input type="password" id="login-password">
+	    		<div class="input-group-append show-hide-password">
+	    			<i class="fa-solid fa-eye show-password"></i>
+	    			<i class="fa-solid fa-eye-slash fa-flip-horizontal hide-password"></i>
+	    		</div>
+	    	</div>
+    		<label>
+    			Password
+   				<small class="error-msg password-error">This is an error.</small>
+			</label>
+	    	<a href="#" class="btn" id="login-btn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+	    	<p>&nbsp;</p>
+			<a href="forgot-password" class="btn"><i class="fa-solid fa-circle-question"></i> Forgot Password</a>
+	    	<a href="sign-up" class="btn"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+    	</div>
+    	<!-- FORGOT PASSWORD VIEW -->
+    	<div class="view" id="forgot-password">
+    		<h3>forgot password</h3>
+    		<p style="text-transform: none; width: 90%; margin-left: auto; margin-right: auto;">Please enter your email address below. We will send you a link to reset your password.</p>
+    		<div class="input-group email-group">
+	    		<input type="email">
+	    		<div class="input-group-append email-check">
+	    			<i class="fa-solid fa-circle-question email-question"></i>
+	    			<i class="fa-solid fa-circle-notch fa-spin email-checking"></i>
+	    			<i class="fa-solid fa-circle-check email-okay"></i>
+	    			<i class="fa-solid fa-circle-xmark email-not-okay"></i>
+	    		</div>
+	    	</div>
+   			<label>
+   				Email Address
+   				<small class="error-msg email-error">This is an error.</small>
+   			</label>
+	    	<a href="#" class="btn" id="forgot-password-btn">send reset link <i class="fa-solid fa-square-arrow-up-right icon-right"></i></a>
+	    	<p>&nbsp;</p>
+	    	<a href="login" class="btn"><i class="fa-solid fa-circle-arrow-left"></i> Back to Login</a>
+    	</div>
+    	<!-- CREATE ACCOUNT VIEW -->
+    	<div class="view" id="sign-up">
+    		<h3>Create account</h3>
+    		<div class="input-group email-group">
+	    		<input type="text" id="sign-up-email">
+	    		<div class="input-group-append email-check">
+	    			<i class="fa-solid fa-circle-question email-question"></i>
+	    			<i class="fa-solid fa-circle-notch fa-spin email-checking"></i>
+	    			<i class="fa-solid fa-circle-check email-okay"></i>
+	    			<i class="fa-solid fa-circle-xmark email-not-okay"></i>
+	    		</div>
+	    	</div>
+   			<label>
+   				Email Address
+   				<small class="error-msg email-error">This is an error.</small>
+   			</label>
+	   		<div class="input-group password-group">
+	    		<input type="password" id="sign-up-password">
+	    		<div class="input-group-append show-hide-password">
+	    			<i class="fa-solid fa-eye show-password"></i>
+	    			<i class="fa-solid fa-eye-slash fa-flip-horizontal hide-password"></i>
+	    		</div>
+	    	</div>
+    		<label>
+    			Password
+   				<small class="error-msg password-error">This is an error.</small>
+			</label>
+	   		<div class="input-group confirm-password-group">
+	    		<input type="password" id="sign-up-confirm-password">
+	    		<div class="input-group-append show-hide-password">
+	    			<i class="fa-solid fa-eye show-password"></i>
+	    			<i class="fa-solid fa-eye-slash fa-flip-horizontal hide-password"></i>
+	    		</div>
+	    	</div>
+    		<label>
+    			Confirm Password
+   				<small class="error-msg confirm-password-error">This is an error.</small>
+    		</label>
+	    	<a href="#" class="btn" id="create-account-btn"><i class="fa-solid fa-user-plus"></i> create account</a>
+	    	<p>&nbsp;</p>
+	    	<a href="login" class="btn"><i class="fa-solid fa-circle-arrow-left"></i> Back to Login</a>
+    	</div>
+    	<!-- RESET PASSWORD VIEW -->
+    	<div class="view" id="reset-password">
+    		<h3>reset password</h3>
+	   		<div class="input-group password-group">
+	    		<input type="password" id="reset-password-password">
+	    		<div class="input-group-append show-hide-password">
+	    			<i class="fa-solid fa-eye show-password"></i>
+	    			<i class="fa-solid fa-eye-slash fa-flip-horizontal hide-password"></i>
+	    		</div>
+	    	</div>
+    		<label>
+    			Password
+   				<small class="error-msg password-error">This is an error.</small>
+			</label>
+	   		<div class="input-group confirm-password-group">
+	    		<input type="password" id="reset-password-confirm-password">
+	    		<div class="input-group-append show-hide-password">
+	    			<i class="fa-solid fa-eye show-password"></i>
+	    			<i class="fa-solid fa-eye-slash fa-flip-horizontal hide-password"></i>
+	    		</div>
+	    	</div>
+    		<label>
+    			Confirm Password
+   				<small class="error-msg confirm-password-error">This is an error.</small>
+    		</label>
+	    	<a href="#" class="btn" id="reset-password-btn"><i class="fa-solid fa-arrow-rotate-right"></i> reset password</a>
+	    	<p>&nbsp;</p>
+	    	<a href="login" class="btn"><i class="fa-solid fa-circle-arrow-left"></i> Back to Login</a>
+    	</div>
+        <script src="cordova.js"></script>
+        <script>
+			function handleOpenURL(url) {
+				console.log("received url: " + url);
+				if(url.indexOf('reset-password') != -1) {
+					var tmp = url.split('?'); // get rid of the part before the ?
+					var token = tmp[1].split('=');
+					window.localStorage.setItem('reset-password-token', token[1]);
+					renderView('reset-password');
+				}
+			}
+        </script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
