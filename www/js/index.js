@@ -86,6 +86,43 @@ $(function() {
 					showError($('#forgot-password .email-error'), 'Invalid email', $('#forgot-password .email-group'));
 				}
 			}
+
+			var signUpEmail = $('#sign-up-email').val();
+			if(signUpEmail != '') {
+				if(validateEmail(signUpEmail)) {
+					$('#sign-up .email-check .email-question').hide();
+					$('#sign-up .email-check .email-checking').show();
+
+					$.ajax({
+						url: 'https://iftweb.eng.asu.edu/talfaro/www/cgi/check_email_exists.py',
+						type: 'POST',
+						data: {
+							email: signUpEmail
+						},
+						success: function(data) {
+							if (data == signUpEmail){
+								$('#sign-up .email-check .email-checking').hide();
+								$('#sign-up .email-check .email-not-okay').show();
+								showError($('#sign-up .email-error'), $('#sign-up .email-group'));
+							} else if (data=='None'){
+								$('#sign-up .email-check .email-checking').hide();
+								$('#sign-up .email-check .email-okay').show();
+							} else if (data=='Invalid'){
+								$('#sign-up .email-check .email-checking').hide();
+								$('#sign-up .email-check .email-not-okay').show();
+								showError($('#sign-up .email-error'), $('#sign-up .email-group'));
+							} 
+						},
+						complete: function(response) {
+							console.log(response);
+						}
+					});
+				} else {
+					$('#sign-up .email-check .email-question').hide();
+					$('#sign-up .email-check .email-not-okay').show();
+					showError($('#sign-up .email-error'), $('#sign-up .email-group'))
+				}
+			}
 		}, 500);
 	});
 	
@@ -145,18 +182,65 @@ $(function() {
 		}, 500);
 	});
 
+	$("#sign-up-email").on("input paste", function () {
+    $("#sign-up .email-check .email-question").show();
+    $(
+      "#sign-up .email-check .email-okay, #sign-up .email-check .email-not-okay, #sign-up .email-check .email-checking"
+    ).hide();
+    hideError($("#sign-up .email-error"), $("#sign-up .email-group"));
+  });
 	
-
-	$('#sign-up-email').on('input paste', function() {
-
-	});
+	$("#sign-up-password").on("input paste", function () {
+    clearTimeout(passInputTimer);
+    hideError($("#sign-up .password-error"), $("#sign-up .password-group"));
+    passInputTimer = setTimeout(function () {
+      var pass = $("#sign-up-password").val();
+      if (pass.length == 0) return false;
+      else if (pass.length < 10) {
+        showError(
+          $("#sign-up .password-error"),
+          "too short",
+          $("#sign-up .password-group")
+        );
+      } else if (!pass.match(/[A-Z]+/g)) {
+        showError(
+          $("#sign-up .password-error"),
+          "needs uppercase letters",
+          $("#sign-up .password-group")
+        );
+      } else if (!pass.match(/[a-z]+/g)) {
+        showError(
+          $("#sign-up .password-error"),
+          "needs lowercase letters",
+          $("#sign-up .password-group")
+        );
+      } else if (!pass.match(/[0-9]+/g)) {
+        showError(
+          $("#sign-up .password-error"),
+          "needs numbers",
+          $("#sign-up .password-group")
+        );
+      }
+    }, 500);
+  });
 	
-	$('#sign-up-password').on('input paste', function() {
-
-	});
-	
-	$('#sign-up-confirm-password').on('input paste', function() {
-
+	$("#sign-up-confirm-password").on("input paste", function () {
+		clearTimeout(confirmPassInputTimer);
+		hideError(
+			$("#sign-up .confirm-password-error"),
+			$("#sign-up .confirm-password-group")
+		);
+		confirmPassInputTimer = setTimeout(function () {
+			var pass = $("#sign-up-password").val();
+			var confirm = $("#sign-up-confirm-password").val();
+			if (pass != confirm) {
+				showError(
+					$("#sign-up .confirm-password-error"),
+					"must match",
+					$("#sign-up .confirm-password-group")
+				);
+			}
+		}, 500);
 	});
 	
 	checkLogin();
@@ -188,7 +272,7 @@ function handleButtonClick(el) {
 			if(!passOK) return false;
 			showLoading();
 			$.ajax({
-				url: 'https://iftweb.eng.asu.edu/[your username]/www/cgi/login.py',
+				url: 'https://iftweb.eng.asu.edu/talfaro/www/cgi/login.py',
 				type: 'POST',
 				data: {
 					email: $('#login-email').val(),
@@ -220,7 +304,7 @@ function handleButtonClick(el) {
 			else {
 				showLoading();
 				$.ajax({
-					url: 'https://iftweb.eng.asu.edu/[your username]/www/cgi/send_password_reset.py',
+					url: 'https://iftweb.eng.asu.edu/talfaro/www/cgi/send_password_reset.py',
 					type: 'POST',
 					data: {
 						email: $('#forgot-password input[type="email"]').val()
@@ -243,6 +327,78 @@ function handleButtonClick(el) {
 				});
 			}			
 		} else if(id == 'create-account-btn') {
+			var emailOK = $("#sign-up .email-okay").is(":visible");
+      var passOK = true;
+      if ($("#sign-up-password").val() == "") {
+        showError(
+          $("#sign-up .password-error"),
+          "enter a password",
+          $("#sign-up .password-group")
+        );
+        passOK = false;
+      } else if ($("#sign-up .password-error").is(":visible")) passOK = false;
+
+      if ($("sign-up-confirm-password").val() == "") {
+        showError(
+          $("#sign-up .confirm-password-error"),
+          "passwords must match",
+          $("#sign-up .confirm-password-group")
+        );
+        passOK = false;
+      } else if ($("#sign-up .confirm-password-error").is(":visible"))
+        passOK = false;
+
+      if (!emailOK || !passOK) {
+        return false;
+      } else {
+        showLoading();
+        $.ajax({
+          url: "https://iftweb.eng.asu.edu/talfaro/www/cgi/add_user.py",
+          type: "POST",
+          data: {
+            email: $("#sign-up-email").val(),
+            password: $("#sign-up-password").val(),
+          },
+          success: function (data) {
+            hideLoading();
+            window.localStorage.removeItem("reset-password-token");
+            if (data == $("#sign-up-email").val()) {
+              renderModal(
+                "Account created!",
+                "<p>Your account was successfully created! You may now login using the username and password you entered",
+                true
+              );
+            } else if (data == "None") {
+              renderModal(
+                "Error!",
+                '"<p>There was an error trying to create your account. Please contact an administrator.</p>',
+                true
+              );
+            } else if (data == "Exists") {
+              renderModal(
+                "Account already exists",
+                '<p>An account with that email already exists. If you have forgotten your password, please use the "Reset Password" button below. Otherwise, please login using your email and password.</p><a href="forgot-password" class="btn"><i class="fa-solid fa-circle-arrow-left"></i> Reset Password</a><a href="login" class="btn"><i class="fa-solid fa-circle-arrow-left"></i> Back to login</a>',
+                true
+              );
+            } else if (data == "Password invalid") {
+              renderModal(
+                "Password invalid!",
+                '"<p>The password you entered was invalid. A valid password matches the following criteria:</p><ul><li>is at least 10 characters</li><li>contains at least one uppercase letter (A - Z)</li><li>contains at least one lowercase letter (a - z)</li><li>contains at least one number (0 - 9)</li></ul><p>Please enter a valid password and try again.</p>',
+                true
+              );
+            } else if (data == "Email invalid") {
+              renderModal(
+                "Email invalid!",
+                '"<p>The email address you entered was invalid. Please enter a valid email address and try again.</p>',
+                true
+              );
+            }
+          },
+          complete: function (response) {
+            console.log(response);
+          },
+        });
+      }
 
 		} else if(id == 'reset-password-btn') {
 			var passOK = true;
@@ -260,7 +416,7 @@ function handleButtonClick(el) {
 			else {
 				showLoading();
 				$.ajax({
-					url: 'https://iftweb.eng.asu.edu/[your username]/www/cgi/reset_password.py',
+					url: 'https://iftweb.eng.asu.edu/talfaro/www/cgi/reset_password.py',
 					type: 'POST',
 					data: {
 						password: $('#reset-password-password').val(),
@@ -299,7 +455,7 @@ function doLogout() {
 	else {
 		var auth = JSON.parse(window.localStorage.getItem('auth'));
 		$.ajax({
-			url: 'https://iftweb.eng.asu.edu/[your username]/www/cgi/logout.py',
+			url: 'https://iftweb.eng.asu.edu/talfaro/www/cgi/logout.py',
 			type: 'POST',
 			data: {
 				token: auth.token
@@ -406,7 +562,7 @@ function verifyLogin() {
 	if(!window.localStorage.getItem('auth')) return false;
 	var auth = JSON.parse(window.localStorage.getItem('auth'));
 	return $.ajax({
-		url: 'https://iftweb.eng.asu.edu/[your username]/www/cgi/verify_login.py',
+		url: 'https://iftweb.eng.asu.edu/talfaro/www/cgi/verify_login.py',
 		type: 'POST',
 		data: {
 			token: auth.token
